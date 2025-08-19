@@ -1,0 +1,28 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "${DB_PORT}"
+
+  odoo:
+    build:
+      context: .
+    depends_on:
+      - db
+    volumes:
+      - ./addons:/mnt/extra-addons
+      - odoo_data:/var/lib/odoo
+      - odoo_logs:/var/log/odoo
+    ports:
+      - "8069:8069"
+
+volumes:
+  pgdata:
+  odoo_data:
+  odoo_logs:
