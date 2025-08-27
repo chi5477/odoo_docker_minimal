@@ -31,4 +31,5 @@ RUN chown odoo:odoo /etc/odoo/odoo.conf
 USER odoo
 EXPOSE 8069
 
-ENTRYPOINT ["python", "/opt/odoo/odoo-bin", "-c", "/etc/odoo/odoo.conf"]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
